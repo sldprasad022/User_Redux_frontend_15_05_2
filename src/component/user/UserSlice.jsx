@@ -66,50 +66,59 @@ const UserSlice = createSlice({
             .addCase(addUser.pending,(state)=>{
                 state.status = "loading";
                 state.error = null; // clear previous errors
+                state.message = ''; // clear previous message
             })
             .addCase(addUser.fulfilled,(state,action)=>{
                 state.status = "succeeded";
                 console.log(action.payload);
                 state.users.push(action.payload);
-                state.message = action.payload;
+                state.message = "User added successfully.";
                 state.error = null; // clear previous errors
             })
             .addCase(addUser.rejected,(state,action)=>{
                 state.status = "failed";
                 console.log(action.payload);
                 state.error = action.payload;
+                state.message = '';
             })
             .addCase(fetchAllUsersData.pending,(state)=>{
                 state.status ='loading';
                 state.error = null; // clear previous errors
+                state.message = '';
             })
             .addCase(fetchAllUsersData.fulfilled,(state,action)=>{
                 state.status ='succeeded';
                 state.users = action.payload;
                 state.error = null; // clear previous errors
+                state.message = 'Fetched all users successfully.';
             })
             .addCase(fetchAllUsersData.rejected,(state,action)=>{
                 state.status = 'rejected';
                 state.error = action.error.message;
+                state.message = '';
             })
             .addCase(deleteUser.pending,(state)=>{
                 state.status ='loading';
                 state.error = null; // clear previous errors
+                state.message = '';
             })
             .addCase(deleteUser.fulfilled,(state,action)=>{
                 state.status = 'succeeded';
                 const deletedUserId = action.meta.arg;
                 state.users = state.users.filter(user => user.userId !== deletedUserId);
                 state.error = null; // clear previous errors
+                state.message = 'User deleted successfully.';
             })
             .addCase(deleteUser.rejected,(state,action)=>{
                 state.status = 'failed';
                 state.error = action.error.message;
+                state.message = '';
             })
 
             .addCase(updateUser.pending,(state)=>{
                 state.status ='pending';
                 state.error = null; // clear previous errors
+                state.message = '';
             })
 
             .addCase(updateUser.fulfilled, (state, action) => {
@@ -120,11 +129,13 @@ const UserSlice = createSlice({
                     state.users[index] = updatedUser;
                 }
                 state.error = null; // clear previous errors
+                state.message = 'User updated successfully.';
             })
 
             .addCase(updateUser.rejected,(state,action)=>{
                 state.status = 'failed';
                 state.error = action.error.message;
+                state.message = '';
             })
             
     }

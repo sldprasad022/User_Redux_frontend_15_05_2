@@ -31,30 +31,30 @@ const TotalUsers = () => {
             //dispatch(deleteUser(userId));
             //2nd model
             dispatch(deleteUser(userId)).unwrap()
-                .then(() => toast.success("User deleted"))
+                .then(() => toast.success("User deleted successfully."))
                 .catch(err => toast.error(err));
         }
     }
 
     if (status === 'loading') return <p className='text-center text-2xl'>Loading...</p>;
-    if (error) return <p className='text-red-500'>{error}</p>;
+    if (error) return <p className='text-red-500 text center'>{error}</p>;
 
 
   return (
     <>
         <div className='p-32'>
             <table className="table-auto border-collapse border-2 border-black w-full">
-            <thead>
-                <tr className="border-2 border-black">
-                <th className="border border-black px-4 py-2">UserId</th>
-                <th className="border border-black px-4 py-2">User Name</th>
-                <th className="border border-black px-4 py-2">Email</th>
-                <th className="border border-black px-4 py-2">Department</th>
-                <th className="border border-black px-4 py-2">Role</th>
-                <th className="border border-black px-4 py-2">Action</th>
-                </tr>
-            </thead>
-            <tbody>
+                <thead>
+                    <tr className="border-2 border-black">
+                    <th className="border border-black px-4 py-2">UserId</th>
+                    <th className="border border-black px-4 py-2">User Name</th>
+                    <th className="border border-black px-4 py-2">Email</th>
+                    <th className="border border-black px-4 py-2">Department</th>
+                    <th className="border border-black px-4 py-2">Role</th>
+                    <th className="border border-black px-4 py-2">Action</th>
+                    </tr>
+                </thead>
+            {/* <tbody>
                 {
                     allUsersData.map((eachUser)=>(
                         <tr key={eachUser.userId} className='text-center'>
@@ -64,7 +64,6 @@ const TotalUsers = () => {
                             <td>{eachUser.department}</td>
                             <td>{eachUser.role}</td>
                             <td className='flex gap-2 justify-center'>
-                                {/* <button className='p-2 bg-blue-800' onclick={()=>handleEdit(eachUser)}>Edit</button> */}
                                 <button className='p-2 bg-blue-800' onClick={()=>
                                     {
                                         setEditState(true);
@@ -78,7 +77,37 @@ const TotalUsers = () => {
                         </tr>
                     ))
                 }
-            </tbody>
+            </tbody> */}
+                <tbody>
+                        {
+                            allUsersData.length === 0 ? (
+                                <tr>
+                                    <td colSpan="6" className="text-center py-4 text-lg text-gray-500">
+                                        No users found.
+                                    </td>
+                                </tr>
+                            ) : (
+                                allUsersData.map((eachUser) => (
+                                    <tr key={eachUser.userId} className='text-center p-2'>
+                                        <td className='border border-2 border-black p-2'>{eachUser.userId}</td>
+                                        <td className='border border-2 border-black p-2'>{eachUser.userName}</td>
+                                        <td className='border border-2 border-black p-2'>{eachUser.email}</td>
+                                        <td className='border border-2 border-black p-2'>{eachUser.department}</td>
+                                        <td className='border border-2 border-black p-2'>{eachUser.role}</td>
+                                        <td className='flex gap-2 justify-center border border-2 border-b-black p-2'>
+                                            <button className='p-2 bg-blue-800' onClick={() => {
+                                                setEditState(true);
+                                                setSelectedUser(eachUser);
+                                            }}>
+                                                Edit
+                                            </button>
+                                            <button className='p-2 bg-red-800' onClick={() => handleDelete(eachUser.userId)}>Delete</button>
+                                        </td>
+                                    </tr>
+                                ))
+                            )
+                        }
+                </tbody>
             </table>
         </div>
 

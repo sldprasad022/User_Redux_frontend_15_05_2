@@ -61,7 +61,7 @@ const handleSubmit = async (e) => {
   try 
   {
     await dispatch(addUser(formValues)).unwrap();
-    toast.success("User Created Successfully!");
+    toast.success(message);
     setFormValues({
       userName: '',
       email: '',
@@ -161,11 +161,13 @@ const handleSubmit = async (e) => {
               /> 
             </div>
 
+            <p className='text-red-800 text-xl text-center'>{error}</p>
+
             {/* <div className='flex justify-center'>
               <button type='submit' className='text-2xl bg-cyan-400 rounded-lg p-2'>Sign UP</button>
             </div> */}
             <div className="flex justify-center gap-4">
-              <button type="submit" className="text-2xl bg-cyan-400 rounded-lg p-2 px-6 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"disabled={status === "loading"}>
+              <button type="submit" className="text-2xl bg-cyan-400 rounded-lg p-2 px-6 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed" disabled={status === "loading"}>
                 {
                   status === "loading" ? (
                 <>
